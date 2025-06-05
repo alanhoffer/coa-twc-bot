@@ -1,10 +1,11 @@
-export default function rewards({ client, channel }) {
-  const rewardsMessage = `**Available Rewards:**
-- **Daily Rewards**: You can claim daily rewards every 24 hours.
-- **Weekly Rewards**: Every week you can claim special rewards.
-- **Quests**: Complete quests to earn additional rewards.
-- **Special Events**: Participate in events to win unique rewards.
+export default function rewards({ client, channel, message }) {
+  const command = message.trim().split(' ')[0].toLowerCase();
 
-**Don’t forget to claim your rewards regularly!**`;
-  client.say(channel, rewardsMessage);
+  if (command === '!rewards') {
+    const rewardsMessage = `**Rewards:**
+1. Social media points.
+2. Share with friends.
+3. Join special events.`;
+    client.say(channel, rewardsMessage);
+  }
 }

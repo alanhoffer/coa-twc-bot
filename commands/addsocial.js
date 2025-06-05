@@ -4,7 +4,7 @@ export default async function addSocialCommand({ client, channel, tags, message,
 
     if (command === '!addsocial') {
         if (args.length < 3) {
-            client.say(channel, `@${tags.username}, uso correcto: !addsocial <nickname> <socialType> <socialId>`);
+            client.say(channel, `@${tags.username}, correct usage: !addsocial <nickname> <socialType> <socialId>`);
             return;
         }
 
@@ -12,7 +12,7 @@ export default async function addSocialCommand({ client, channel, tags, message,
 
         try {
             await userService.addSocialToNickname(nickname, socialType, socialId);
-            client.say(channel, `@${tags.username}, red social ${socialType} agregada correctamente para el nickname ${nickname}.`);
+            client.say(channel, `@${tags.username}, social media ${socialType} successfully added for nickname ${nickname}.`);
         } catch (error) {
             client.say(channel, `@${tags.username}, error: ${error.message}`);
         }

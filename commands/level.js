@@ -7,28 +7,27 @@ export default async function levelCommands({ client, channel, tags, message, us
         const username = tags.username;
 
         try {
-            // Obtenemos nickname desde tu servicio usando "twitch" como plataforma
+            // Get nickname from your service using "twitch" as platform
             const nickname = await userService.getNicknameBySocialId('twitch', username);
             if (!nickname) {
-                client.say(channel, `@${username} Registrate en la !web.`);
+                client.say(channel, `@${username} Please register at !web.`);
                 return;
             }
 
             const userStats = await userService.getUserStatsByNickname(nickname);
             if (!userStats) {
-                client.say(channel, `@${username} Registrate en la !web.`);
+                client.say(channel, `@${username} Please register at !web.`);
                 return;
             }
 
-            console.log(userStats)
-            // Mostrar stats como texto (puedes formatearlo a gusto)
+            console.log(userStats);
+            // Show stats as text (you can format as you like)
             const pointsBar = getPointsBar(userStats.pointsCurrent, userStats.pointsToNextLevel);
-            client.say(channel, ` @${username} ----- 🏅 Rank: #${userStats.rank}   Nivel: ${userStats.level} - 🧪 PTS: ${userStats.pointsCurrent}/${userStats.pointsToNextLevel} ${pointsBar}`);
-
+            client.say(channel, `@${username} ----- 🏅 Rank: #${userStats.rank}   Level: ${userStats.level} - 🧪 PTS: ${userStats.pointsCurrent}/${userStats.pointsToNextLevel} ${pointsBar}`);
 
         } catch (error) {
             console.error(error);
-            client.say(channel, `@${username} Ocurrió un error al obtener tus stats.`);
+            client.say(channel, `@${username} An error occurred while retrieving your stats.`);
         }
     }
 }

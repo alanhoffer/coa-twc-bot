@@ -1,4 +1,4 @@
-export default function support({ client, channel }) {
+export default function supportCommand({ client, channel, message }) {
   const command = message.trim().split(' ')[0].toLowerCase();
 
   if (command === '!support') {
