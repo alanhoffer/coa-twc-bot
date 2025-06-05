@@ -1,6 +1,6 @@
 import { getPointsBar } from "../helpers/getPointsBar.js";
 
-export default async function levelCommands({ client, channel, tags, message, userService }) {
+export default async function rankCommands({ client, channel, tags, message, userService }) {
     const command = message.trim().split(' ')[0].toLowerCase();
 
     if (command === '!rank') {
@@ -22,8 +22,7 @@ export default async function levelCommands({ client, channel, tags, message, us
 
             console.log(userStats);
             // Show stats as text (you can format as you like)
-            const pointsBar = getPointsBar(userStats.pointsCurrent, userStats.pointsToNextLevel);
-            client.say(channel, `@${username} ----- 🏅 Rank: #${userStats.rank}   Level: ${userStats.level} - 🧪 PTS: ${userStats.pointsCurrent}/${userStats.pointsToNextLevel} ${pointsBar}`);
+            client.say(channel, `@${username} ---- 🏅 Rank: #${userStats.rank} 🧪  Adventurer Level: ${userStats.level} - PTS: ${userStats.pointsCurrent}/${userStats.pointsToNextLevel}`);
 
         } catch (error) {
             console.error(error);
