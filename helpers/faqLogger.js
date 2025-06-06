@@ -1,33 +1,43 @@
-// faqLogger.js
-import fs from 'fs'
-const path = './data/faqs.txt';
+import fs from 'fs/promises'; // para usar await
+const path = './data/faqs.json';
 
-export default function logQuestion(message) {
+export default async function logQuestion(message, username) {
   if (!message.trim().endsWith('?')) {
     console.log(`No es pregunta: "${message}"`);
     return;
   }
 
-  console.log(`Pregunta detectada: "${message}"`);
+  console.log(`Pregunta detectada: "${message}" de ${username}`);
 
-  fs.readFile(path, 'utf8', (err, data) => {
-    if (err && err.code !== 'ENOENT') {
+  let faqs = {};
+  try {
+    const data = await fs.readFile(path, 'utf8');
+    faqs = JSON.parse(data);
+  } catch (err) {
+    if (err.code !== 'ENOENT') {
       console.error('❌ Error leyendo archivo de preguntas:', err);
       return;
     }
+    // archivo no existe, empezamos con objeto vacío
+  }
 
-    const existing = data ? data.split('\n') : [];
-    if (existing.includes(message)) {
-      console.log(`Pregunta ya registrada: "${message}"`);
-      return;
+  if (!faqs[message]) {
+    faqs[message] = {
+      count: 1,
+      firstAsked: new Date().toISOString(),
+      users: [username]
+    };
+  } else {
+    faqs[message].count++;
+    if (!faqs[message].users.includes(username)) {
+      faqs[message].users.push(username);
     }
+  }
 
-    fs.appendFile(path, message + '\n', err => {
-      if (err) {
-        console.error('❌ Error guardando pregunta:', err);
-      } else {
-        console.log(`Pregunta guardada: "${message}"`);
-      }
-    });
-  });
+  try {
+    await fs.writeFile(path, JSON.stringify(faqs, null, 2));
+    console.log(`Pregunta actualizada: "${message}"`);
+  } catch (err) {
+    console.error('❌ Error guardando archivo de preguntas:', err);
+  }
 }
