@@ -11,7 +11,7 @@ export default async function addSocialCommand({ client, channel, tags, message,
             client.say(channel, `@${username} Please register at !web.`);
             return;
         }
-        if (args.length < 3) {
+        if (args.length < 2) {
             client.say(channel, `@${username}, correct usage: !addsocial <discord;youtube> <socialId>`);
             return;
         }
