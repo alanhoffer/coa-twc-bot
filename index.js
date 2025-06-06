@@ -35,7 +35,7 @@ client.connect()
 client.on('message', (channel, tags, message, self) => {
   if (self) return;
 
-  logQuestion(message);
+  logQuestion(message, tags);
 
   const command = message.trim().split(' ')[0].toLowerCase();
   const runCommand = commands[command];
