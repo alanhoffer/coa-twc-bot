@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = './faqs.txt';
 
-function logQuestion(message) {
+export default function logQuestion(message) {
   if (!message.trim().endsWith('?')) return;
 
   fs.readFile(path, 'utf8', (err, data) => {
@@ -14,5 +14,3 @@ function logQuestion(message) {
     }
   });
 }
-
-module.exports = { logQuestion };

@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { queryWithReconnect } from './config/conection.js';
 import User from './entities/User.js';
-import { logQuestion } from './helpers/faqLogger.js'
+import logQuestion from './helpers/faqLogger.js';
 
 dotenv.config();
 
