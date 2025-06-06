@@ -3,13 +3,16 @@ export default async function addSocialCommand({ client, channel, tags, message,
     const command = args.shift().toLowerCase();
 
     if (command === '!addsocial') {
+        
+        const username = tags.username;
+
         const nickname = await userService.getNicknameBySocialId('twitch', username);
         if (!nickname) {
             client.say(channel, `@${username} Please register at !web.`);
             return;
         }
         if (args.length < 3) {
-            client.say(channel, `@${tags.username}, correct usage: !addsocial <discord;youtube> <socialId>`);
+            client.say(channel, `@${username}, correct usage: !addsocial <discord;youtube> <socialId>`);
             return;
         }
 
@@ -17,9 +20,9 @@ export default async function addSocialCommand({ client, channel, tags, message,
 
         try {
             await userService.addSocialToNickname(nickname, socialType, socialId);
-            client.say(channel, `@${tags.username}, social linked.`);
+            client.say(channel, `@${username}, social linked.`);
         } catch (error) {
-            client.say(channel, `@${tags.username}, error: ${error.message}`);
+            client.say(channel, `@${username}, error: ${error.message}`);
         }
     }
 }
