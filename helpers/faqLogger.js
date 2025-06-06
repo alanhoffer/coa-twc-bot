@@ -1,5 +1,5 @@
 // faqLogger.js
-const fs = require('fs');
+import fs from 'fs'
 const path = './faqs.txt';
 
 export default function logQuestion(message) {
