@@ -4,6 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { queryWithReconnect } from './config/conection.js';
 import User from './entities/User.js';
+import { logQuestion } from './helpers/faqLogger.js'
 
 dotenv.config();
 
@@ -34,7 +35,7 @@ client.connect()
 client.on('message', (channel, tags, message, self) => {
   if (self) return;
 
-  logQuestion(message); 
+  logQuestion(message);
 
   const command = message.trim().split(' ')[0].toLowerCase();
   const runCommand = commands[command];
