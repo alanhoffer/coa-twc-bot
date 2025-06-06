@@ -1,6 +1,6 @@
 // faqLogger.js
 import fs from 'fs'
-const path = './faqs.txt';
+const path = './data/faqs.txt';
 
 export default function logQuestion(message) {
   if (!message.trim().endsWith('?')) {
