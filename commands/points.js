@@ -3,6 +3,7 @@ export default async function pointsCommand({ client, channel, tags, message, us
 
     if (command === '!points') {
         const username = tags.username;
+        console.log(`Received !points command from ${username} in channel ${channel}`);
         let nickname;
         try {
             nickname = await userService.getNicknameBySocialId('twitch', username);
